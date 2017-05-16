@@ -29,16 +29,19 @@ void mostrarRegistros(FILE *fp){
     }
 }
 
-Registro buscaReg(FILE *fp){
+Registro buscaReg(FILE *fp, int chave){
     Registro aux;
     fseek(fp, 0,SEEK_END);
     int qtd = ftell(fp)/sizeof(Registro);
     fseek(fp, 0, SEEK_SET);
     int a = 0;
-    fread(&aux, sizeof(Registro), 1, fp);
-    while(a < qtd && chave != aux.chave){
+    while(a < qtd){
         fread(&aux, sizeof(Registro), 1, fp);
+        if(chave == aux.chave){
+            return aux;
+        }
         a++;
     }
+    aux.chave = -1;
     return aux;
 }
