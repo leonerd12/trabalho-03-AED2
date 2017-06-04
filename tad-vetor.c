@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "tad-vetor.h"
 
-void embaralharVetorInt(int vet[], int tam) {
+void embaralharVetor(int vet[], int tam) {
 	int temp, novaPosicao;
 	// Embaralha os valores do vetor
 	for (int i = 0; i < tam; i++) {
@@ -31,14 +31,28 @@ void gerarVetor(int vet[], int tam) {
 	}
 }
 
-void imprimeVetor(int vet[], int tam) {
+void gerarVetorFloat(float vet[], int tam) {
+	// Gera vetor com valores de 1 à 'tam'
+	for (int i = 0; i < tam; i++) {
+		vet[i] = i+1;
+	}
+}
+
+void imprimirVetor(int vet[], int tam) {
 	for (int i = 0; i < tam; i++) {
 		printf("%d ", vet[i]);
 	}
 	printf("\n");
 }
 
-void selecionaChaves(int chaves[], int n, int vet[], int tam) {
+void imprimirVetorFloat(float vet[], int tam) {
+	for (int i = 0; i < tam; i++) {
+		printf("%.2f ", vet[i]);
+	}
+	printf("\n");
+}
+
+void selecionarChaves(int chaves[], int n, int vet[], int tam) {
     int i, posicao;
     for (i = 0; i < n; i++) {
         posicao = rand() % tam; // Sorteia posição no intervalo 0 - tam

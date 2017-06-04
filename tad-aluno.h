@@ -14,6 +14,7 @@ void mostrarAlunos(FILE *fp);
 Aluno* buscaReg(FILE *fp, int chave);
 
 void gerarMatriculas(int vet[], int tam);
-void gerarCoeficientes(float vet[], int tam);
+
+float gerarCoeficiente();
 
 #endif

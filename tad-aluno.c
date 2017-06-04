@@ -64,8 +64,7 @@ void imprimirAlunosVetor(Aluno alunos[], int tam) {
 }
 
 void gerarMatriculas(int vet[], int tam) {
-    int aux;
-    // aux = rand() % 1000;
+    int aux = 0;
     srand(time(NULL));
 	for (int i = 0; i < tam; i++) {
         aux += rand() % 20;
@@ -73,8 +72,6 @@ void gerarMatriculas(int vet[], int tam) {
 	}
 }
 
-void gerarCoeficientes(float vet[], int tam){
-    for(int i  = 0; i < tam; i++){
-        vet[i] = (float)(rand()%100)/10;
-    }
+float gerarCoeficiente() {
+    return (rand() % 1000) / 100.0;
 }
