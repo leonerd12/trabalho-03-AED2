@@ -1,5 +1,6 @@
 #ifndef ARQUIVO_H
 #define ARQUIVO_H
+#define N_REGISTROS 1000
 
 typedef struct Aluno {
     int matricula;

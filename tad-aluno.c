@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "tad-aluno.h"
 #include "tad-vetor.h"
@@ -48,12 +49,27 @@ Aluno* buscaReg(FILE *fp, int mat){
     return NULL;
 }
 
+void imprimirAlunosVetor(Aluno alunos[], int tam) {
+    Aluno aluno;
+    for (int i = 0; i < tam; i++) {
+        aluno = alunos[i];
+        printf("Matrícula: %d\n", aluno.matricula);
+        // printf("Nome: %s\n", aux.nome);
+        printf("Coeficiente: %.2f\n", aluno.coeficiente);
+        // printf("Data de Nascimento: %s\n", aux.dataNascimento);
+        // printf("Data de Matrícula: %s\n", aux.dataMatricula);
+        // printf("Período: %d\n", aux.periodo);
+        printf("=============================\n");
+    }
+}
 
 void gerarMatriculas(int vet[], int tam) {
     int aux;
-    aux = rand() % 1000;
+    // aux = rand() % 1000;
+    srand(time(NULL));
 	for (int i = 0; i < tam; i++) {
-		vet[i] = 21000000 + ((i+1) * aux);
+        aux += rand() % 20;
+		vet[i] = 21000000 + aux;
 	}
 }
 
