@@ -4,56 +4,58 @@
 #include "tad-arvore.h"
 #include "tad-vetor.h"
 
-
 int main(){
     //variáveis
     FILE *fp;
-    Aluno aux, *res;
-    Arvore* arv = NULL;
+    Aluno aux;
 
-    int matriculas[100];
-    float coeficientes[100];
+    Arvore *arv = NULL, *res;
+    // int matriculas[100];
+    // float coeficientes[100];
+    //
 
-    //abrir arquivo
     fp = fopen("arq", "w+");
 
-    gerarMatriculas(matriculas, 100);
-    embaralharVetorInt(matriculas, 100);
-
-  	gerarCoeficientes(coeficientes, 100);
-  	embaralharVetorFloat(coeficientes, 100);
+    // gerarMatriculas(matriculas, 100);
+    // embaralharVetorInt(matriculas, 100);
+    //
+	// gerarCoeficientes(coeficientes, 100);
+ // 	embaralharVetorFloat(coeficientes, 100);
 
     //inserir os registros no arquivo
     for(int i = 0; i < 100; i++){
-        aux.matricula = matriculas[i];
-        aux.coeficiente = coeficientes[i];
-        //Wildes fez essa parte
+        // aux.matricula = 21000000 + (rand()%1000000);
+        // aux.coeficiente = (float) (rand() % 1000) / 100;
         fwrite(&aux, sizeof(Aluno), 1, fp);
     }
-
-    //mostrar os registros
-    // mostrarAlunos(fp);
-
-    //busca um registro no arquivo
-    // res = buscaReg(fp, 144);
-    // if(res != NULL){
-    //     printf("(%.2f)\n", res->coef);
-    // }else{
-    //     printf("Aluno não encontrado.\n");
-    // }
 
     //inserir os registros na árvore
     fseek(fp, 0, SEEK_SET);
     while(fread(&aux, sizeof(Aluno), 1, fp)){
         insereArvore(&arv, aux.matricula, (ftell(fp)/sizeof(Aluno)) - 1);
     }
+    // arvoreCentral(arv);
 
-    //mostrar os registros na árvore
-    // printf("caminhar na arvore\n");
-    arvoreCentral(arv);
-    // printf("%d\n", arv->chave);
+    int busca;
+    printf("Digite uma matrícula para buscar no sistema: ");
+    scanf("%d", &busca);
 
-    //fechar o arquivo
-    fclose(fp);
+
+    res = buscaArv(arv, busca);
+
+    //puxar os dados do arquivo
+    if(res){
+        fseek(fp, 0, SEEK_SET);
+        fseek(fp, res->ind_vet*sizeof(Aluno), SEEK_CUR);
+        fread(&aux, sizeof(Aluno), 1, fp);
+
+        printf("Matricula do aluno buscado: %d\n", aux.matricula);
+        printf("Coeficiente do aluno buscado: %.2f\n", aux.coeficiente);
+        //fechar o arquivo
+        fclose(fp);
+    }else{
+        printf("Aluno não encontrado.\n");
+    }
+
     return 0;
 }
