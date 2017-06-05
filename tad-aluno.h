@@ -17,4 +17,6 @@ void gerarMatriculas(int vet[], int tam);
 
 float gerarCoeficiente();
 
+void geraMatriculasBusca(int vet[], int tam);
+
 #endif

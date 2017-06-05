@@ -59,7 +59,10 @@ Arvore* buscaArv(Arvore* raiz, int chave){
 		}else if(chave > raiz->chave){
 			buscaArv(raiz->dir, chave);
 		}
-	}else{
+	}
+
+	else {
 		return NULL;
 	}
+
 }

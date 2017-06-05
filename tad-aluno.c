@@ -75,3 +75,13 @@ void gerarMatriculas(int vet[], int tam) {
 float gerarCoeficiente() {
     return (rand() % 1000) / 100.0;
 }
+
+void geraMatriculasBusca(int vet[], int tam) {
+    int i, max, min;
+    max = 21009400;
+    min = 21000000;
+
+    srand(time(NULL));
+    for (i = 20; i < tam; i++)
+        vet[i] = rand() % (max - min) + min;
+}
