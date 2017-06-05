@@ -35,7 +35,7 @@ void mostrarAlunos(FILE *fp){
 
 Aluno* buscaReg(FILE *fp, int mat){
     Aluno* aux;
-    fseek(fp, 0,SEEK_END);
+    fseek(fp, 0, SEEK_END);
     int qtd = ftell(fp)/sizeof(Aluno);
     fseek(fp, 0, SEEK_SET);
     int a = 0;
@@ -76,12 +76,29 @@ float gerarCoeficiente() {
     return (rand() % 1000) / 100.0;
 }
 
-void geraMatriculasBusca(int vet[], int tam) {
-    int i, max, min;
-    max = 21009400;
-    min = 21000000;
+// void geraMatriculasBusca(int vet[], int tam) {
+//     int i, max, min;
+//     max = 21009400;
+//     min = 21000000;
+//
+//     srand(time(NULL));
+//     for (i = 20; i < tam; i++)
+//         vet[i] = rand() % (max - min) + min;
+// }
 
-    srand(time(NULL));
-    for (i = 20; i < tam; i++)
-        vet[i] = rand() % (max - min) + min;
+void selecionarChavesArquivo(int chaves[], int n, FILE *arquivo) {
+    Aluno aluno;
+    int i, posicao;
+    int min = 21009400;
+    int max = 21010000;
+    for (i = 0; i < n / 2; i++) {
+        posicao = rand() % N_REGISTROS; // Sorteia posição no intervalo 0 - tam
+        fseek(arquivo, 0, SEEK_SET);
+        fseek(arquivo, sizeof(Aluno) * posicao, SEEK_SET);
+        fread(&aluno, sizeof(Aluno), 1, arquivo);
+        chaves[i] = aluno.matricula;
+    }
+    for (i = i; i < n; i++) {
+        chaves[i] = rand() % (max - min) + min;
+    }
 }

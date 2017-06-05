@@ -24,7 +24,8 @@ int main(){
 
     arvoreCentral(arvore);
     //Busca na Árvore de Chaves não repetidas
-    gerarMatriculas(matriculasBusca, 30);
+    // gerarMatriculas(matriculasBusca, 30);
+    selecionarChavesArquivo(matriculasBusca, 30, arquivo);
 
     for (i = 0; i < 30; i++) {
         start = clock();
@@ -37,6 +38,7 @@ int main(){
 
         else {
             printf(">> Não foi encontrado nenhum aluno de matrícula %d.\n", matriculasBusca[i]);
+            printf(">> Tempo: %.10lf\n", tempoMatriculas);
         }
     }
 
