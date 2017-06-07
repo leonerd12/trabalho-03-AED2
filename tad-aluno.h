@@ -4,6 +4,9 @@
 
 typedef struct Aluno {
     int matricula;
+    char nome[30];
+    int idade;
+    char curso[30];
     float coeficiente;
 } Aluno;
 
@@ -20,5 +23,7 @@ float gerarCoeficiente();
 // void geraMatriculasBusca(int vet[], int tam);
 
 void selecionarChavesArquivo(int chaves[], int n, FILE *arquivo);
+
+char* sorteiaString(char nomes[][30], int qtdNomes);
 
 #endif

@@ -6,16 +6,6 @@
 #include "tad-aluno.h"
 #include "tad-vetor.h"
 
-Aluno insereReg(Aluno reg, Aluno aux){
-    reg.matricula = aux.matricula;
-    // strcpy(reg.nome, aux.nome);
-    reg.coeficiente = aux.coeficiente;
-    // strcpy(reg.dataNascimento, aux.dataNascimento);
-    // strcpy(reg.dataMatricula, aux.dataMatricula);
-    // reg.periodo = aux.periodo;
-    return reg;
-}
-
 void mostrarAlunos(FILE *fp){
     Aluno aux;
     fseek(fp, 0,SEEK_END);
@@ -101,4 +91,9 @@ void selecionarChavesArquivo(int chaves[], int n, FILE *arquivo) {
     for (i = i; i < n; i++) {
         chaves[i] = rand() % (max - min) + min;
     }
+}
+
+char* sorteiaString(char strings[][30], int qtdStrings) {
+    int posicao = rand() % qtdStrings;
+    return strings[posicao];
 }

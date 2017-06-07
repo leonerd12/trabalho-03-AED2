@@ -24,11 +24,11 @@ int main(){
         insereHash(aluno.matricula, i, tabelaHash, N_REGISTROS);
     }
 
-    // imprimeTabelaHash(tabelaHash, N_REGISTROS);
+    imprimeTabelaHash(tabelaHash, N_REGISTROS);
 
 
-    int posicao = buscaHash(21029450, tabelaHash, N_REGISTROS);
-    printf("21029450 na posição %d\n", posicao);
+    int posicao = buscaHash(21018495, tabelaHash, N_REGISTROS);
+    printf("21018495 na posição %d\n", posicao);
 
 
     // Fechar o arquivo.
