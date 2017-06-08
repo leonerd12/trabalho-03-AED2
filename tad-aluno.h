@@ -10,6 +10,7 @@ typedef struct Aluno {
     float coeficiente;
 } Aluno;
 
+
 Aluno insereReg(Aluno reg, Aluno aux);
 
 void mostrarAlunos(FILE *fp);
@@ -25,5 +26,13 @@ float gerarCoeficiente();
 void selecionarChavesArquivo(int chaves[], int n, FILE *arquivo);
 
 char* sorteiaString(char nomes[][30], int qtdNomes);
+
+void selecionarCoeficientesArquivo(float chaves[], int n, FILE *arquivo);
+
+Aluno* encontra(FILE *arquivo, int res);
+
+Aluno* buscaNoArquivoPorChave(FILE *arquivo, int chave);
+
+Aluno buscaNoArquivoPorPosicao(FILE *arquivo, int posicao);
 
 #endif

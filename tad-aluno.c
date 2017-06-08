@@ -97,3 +97,62 @@ char* sorteiaString(char strings[][30], int qtdStrings) {
     int posicao = rand() % qtdStrings;
     return strings[posicao];
 }
+
+void selecionarCoeficientesArquivo(float chaves[], int n, FILE *arquivo) {
+    Aluno aluno;
+    int i, posicao;
+    float min = 0.5;
+    float max = 10;
+    srand(time(NULL));
+    for (i = 0; i < n / 2; i++) {
+        posicao = rand() % N_REGISTROS; // Sorteia posição no intervalo 0 - tam
+        fseek(arquivo, 0, SEEK_SET);
+        fseek(arquivo, sizeof(Aluno) * posicao, SEEK_SET);
+        fread(&aluno, sizeof(Aluno), 1, arquivo);
+        chaves[i] = aluno.coeficiente;
+    }
+    for (i = i; i < n; i++) {
+        chaves[i] = i;//rand() % (max - min) + min;
+    }
+}
+
+Aluno* encontra(FILE *arquivo, int res){
+    Aluno* aluno;
+
+    if (res) {
+        fseek(arquivo, 0, SEEK_SET);
+        fseek(arquivo, res * sizeof(Aluno), SEEK_CUR);
+        fread(&aluno, sizeof(Aluno), 1, arquivo);
+    } else {
+        printf("Aluno não encontrado.\n");
+    }
+    return aluno;
+}
+
+Aluno* buscaNoArquivoPorChave(FILE *arquivo, int chave) {
+    Aluno aluno;
+    Aluno *alunoPonteiro = (Aluno*) malloc(sizeof(Aluno));
+    fseek(arquivo, 0, SEEK_SET);
+    while (fread(&aluno, sizeof(Aluno), 1, arquivo)) {
+        if (aluno.matricula == chave) {
+            alunoPonteiro->matricula = aluno.matricula;
+            alunoPonteiro->idade = aluno.idade;
+            alunoPonteiro->coeficiente = aluno.coeficiente;
+            strcpy(alunoPonteiro->nome, aluno.nome);
+            strcpy(alunoPonteiro->curso, aluno.curso);
+
+            printf("%d %s %.2f\n", aluno.matricula, aluno.nome, aluno.coeficiente);
+            return alunoPonteiro;
+        }
+    }
+    alunoPonteiro = NULL;
+    return alunoPonteiro;
+}
+
+Aluno buscaNoArquivoPorPosicao(FILE *arquivo, int posicao) {
+    Aluno aluno;
+    fseek(arquivo, 0, SEEK_SET);
+    fseek(arquivo, posicao * sizeof(Aluno), SEEK_CUR);
+    fread(&aluno, sizeof(Aluno), 1, arquivo);
+    return aluno;
+}

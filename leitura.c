@@ -22,13 +22,24 @@ int main(){
     while (fread(&aluno, sizeof(Aluno), 1, arquivo)) {
         i = ftell(arquivo) / sizeof(Aluno) - 1;
         insereHash(aluno.matricula, i, tabelaHash, N_REGISTROS);
+        printf("%d %s %.2f\n", aluno.matricula, aluno.nome, aluno.coeficiente);
     }
 
-    imprimeTabelaHash(tabelaHash, N_REGISTROS);
+    //imprimeTabelaHash(tabelaHash, N_REGISTROS);
 
 
-    int posicao = buscaHash(21018495, tabelaHash, N_REGISTROS);
-    printf("21018495 na posição %d\n", posicao);
+    //int posicao = buscaHash(21066093, tabelaHash, N_REGISTROS);
+    //printf("21018495 na posição %d\n", posicao);
+
+    Aluno *alunox = (Aluno*) malloc(sizeof(Aluno));
+    //alunox = (Aluno*);
+    alunox = buscaNoArquivoPorChave(arquivo, 21002509);
+
+    if (alunox != NULL) {
+        printf("%s\n", alunox->nome);
+        printf("%f\n", alunox->coeficiente);
+    }
+    else printf("Nao encontrado\n");
 
 
     // Fechar o arquivo.
