@@ -37,9 +37,11 @@ int buscaHash(int chave, Hash *tabelaHash[], int tamanho) {
             }
             percorre = percorre->prox;
         }
-        printf(">> A chave %d não foi encontrada na tabela Hash.\n", chave);
+        // Não encontrou
+        return -1;
     } else {
-        printf(">> A chave do registro não é contemplada na tabela Hash.\n");
+        // Não é contemplado na Tabela Hash
+        return -2;
     }
 }
 
@@ -55,4 +57,14 @@ void imprimeTabelaHash(Hash *tabelaHash[], int tamanho) {
         }
         printf("\n");
     }
+}
+
+void imprimeLinhaHash(Hash *tabelaHash[], int tamanho, int linha) {
+    Hash *percorre = tabelaHash[linha];
+    printf("[%d]: ", linha);
+    while(percorre != NULL) {
+        printf("%d %d\n", percorre->chave, percorre->posicaoArquivo);
+        percorre = percorre->prox;
+    }
+    printf("\n");
 }

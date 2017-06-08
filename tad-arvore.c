@@ -13,11 +13,10 @@ void insereArvore(Arvore** arv, int chave, int indiceArq) {
 		(*arv)->esq = NULL;
 		(*arv)->dir = NULL;
 		(*arv)->chave = chave;
-		(*arv)->ind_vet = indiceArq;
 		(*arv)->posicaoArquivo = indiceArq;
 	}
 	else {
-		if (chave < (*arv)->chave) {
+		if (chave <= (*arv)->chave) {
 			insereArvore(&(*arv)->esq, chave, indiceArq);
 		}
 		else {
@@ -26,21 +25,20 @@ void insereArvore(Arvore** arv, int chave, int indiceArq) {
 	}
 }
 
-void insereArvoreCo(ArvoreFloat** arv1, float chave, int indiceArq) {
+void insereArvoreFloat(ArvoreFloat** arv1, float chave, int indiceArq) {
 	if (*arv1 == NULL) {
 		*arv1 = (ArvoreFloat*) malloc(sizeof(ArvoreFloat));
 		(*arv1)->esq = NULL;
 		(*arv1)->dir = NULL;
 		(*arv1)->chave = chave;
-		(*arv1)->ind_vet = indiceArq; // precisa?
 		(*arv1)->posicaoArquivo = indiceArq;
 	}
 	else {
-		if (chave < (*arv1)->chave) {
-			insereArvoreCo(&(*arv1)->esq, chave, indiceArq);
+		if (chave <= (*arv1)->chave) {
+			insereArvoreFloat(&(*arv1)->esq, chave, indiceArq);
 		}
 		else {
-			insereArvoreCo(&(*arv1)->dir, chave, indiceArq);
+			insereArvoreFloat(&(*arv1)->dir, chave, indiceArq);
 		}
 	}
 }
@@ -80,14 +78,14 @@ void arvorePosFixada(Arvore* arv) {
 }
 
 
-Arvore* buscaArv(Arvore* raiz, int chave){
+Arvore* buscaArvore(Arvore* raiz, int chave){
 	if (raiz != NULL) {
 		if(raiz->chave == chave){
 			return raiz;
 		}else if(chave < raiz->chave){
-			buscaArv(raiz->esq, chave);
+			buscaArvore(raiz->esq, chave);
 		}else if(chave > raiz->chave){
-			buscaArv(raiz->dir, chave);
+			buscaArvore(raiz->dir, chave);
 		}
 	}
 
@@ -97,14 +95,14 @@ Arvore* buscaArv(Arvore* raiz, int chave){
 
 }
 
-ArvoreFloat* buscaArvCo(ArvoreFloat* raiz, float chave){
+ArvoreFloat* buscaArvoreFloat(ArvoreFloat* raiz, float chave){
 	if (raiz != NULL) {
 		if(raiz->chave == chave){
 			return raiz;
 		}else if(chave < raiz->chave){
-			buscaArvCo(raiz->esq, chave);
+			buscaArvoreFloat(raiz->esq, chave);
 		}else if(chave > raiz->chave){
-			buscaArvCo(raiz->dir, chave);
+			buscaArvoreFloat(raiz->dir, chave);
 		}
 	}
 

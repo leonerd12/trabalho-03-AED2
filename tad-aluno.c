@@ -140,8 +140,6 @@ Aluno* buscaNoArquivoPorChave(FILE *arquivo, int chave) {
             alunoPonteiro->coeficiente = aluno.coeficiente;
             strcpy(alunoPonteiro->nome, aluno.nome);
             strcpy(alunoPonteiro->curso, aluno.curso);
-
-            printf("%d %s %.2f\n", aluno.matricula, aluno.nome, aluno.coeficiente);
             return alunoPonteiro;
         }
     }

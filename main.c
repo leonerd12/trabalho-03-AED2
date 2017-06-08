@@ -4,24 +4,22 @@
 #include "tad-aluno.h"
 #include "tad-arvore.h"
 #include "tad-hash.h"
-#include "tad-vetor.h" // Precisa disso?
 
 int main(){
     FILE *arquivo;
-    Aluno aluno;
-    Aluno *alunoPonteiro;
-    Arvore *arvoreMatricula, *arvoreResposta; // Atualizar o res p/ arvoreResposta
-    ArvoreFloat *arvoreCoeficiente, *arvoreCoeficienteResposta; // Atualizar Arvore1 p ArvoreFloat e resco p arvoreCoeficienteResposta
+    Aluno aluno, *alunoPonteiro;
+    Arvore *arvoreMatricula, *arvoreResposta;
+    ArvoreFloat *arvoreCoeficiente, *arvoreCoeficienteResposta;
     Hash *tabelaHash[N_REGISTROS];
     int matriculasBusca[30];
     float coeficientesBusca[30];
-    double tempoMatriculas = 0, mediaMatriculas = 0;
+    double tempoMatriculas = 0;
     double mediaMatriculasArquivo = 0;
     double mediaMatriculasArvore = 0;
     double mediaMatriculasHash = 0;
-    double tempoCoeficientes = 0, mediaCoeficientes = 0;
-    clock_t start;
+    double tempoCoeficientes = 0, mediaCoeficientes = 0; // sumir com esses caras tbm
     int i, posicaoArquivo;
+    clock_t start;
 
     // Abrir arquivo p/ leitura
     arquivo = fopen("registros", "rb");
@@ -31,12 +29,12 @@ int main(){
     arvoreCoeficiente = NULL;
     inicializaTabelaHash(tabelaHash, N_REGISTROS);
 
-    // Instancia a arvore de Matriculas, a arvore de Coeficientes e a Tabela Hash
+    // Instancia a árvore de Matrículas, a arvore de Coeficientes e a Tabela Hash
     // Alem das chaves, salva a posicao dos registros nas estruturas.
     while (fread(&aluno, sizeof(Aluno), 1, arquivo)) {
         posicaoArquivo = ftell(arquivo) /sizeof(Aluno) - 1;
         insereArvore(&arvoreMatricula, aluno.matricula, posicaoArquivo);
-        insereArvoreCo(&arvoreCoeficiente, aluno.coeficiente, posicaoArquivo); // mudar Co p COeficiente
+        insereArvoreFloat(&arvoreCoeficiente, aluno.coeficiente, posicaoArquivo);
         insereHash(aluno.matricula, posicaoArquivo, tabelaHash, N_REGISTROS);
     }
 
@@ -58,16 +56,13 @@ int main(){
         // BUSCA NO ARQUIVO
         printf(">> Busca no Arquivo por Matrícula\n");
         start = clock();
-
         alunoPonteiro = buscaNoArquivoPorChave(arquivo, matriculasBusca[i]);
-
         tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
         mediaMatriculasArquivo += tempoMatriculas;
         if (alunoPonteiro != NULL) {
             printf(">> Encontrei a chave %d em %.10lf segundos\n", matriculasBusca[i], tempoMatriculas);
-            //printf(">> Dados:\nMatricula: %d\nNome: %s\nCoeficiente: %.2f\n\n",
-              //  alunoPonteiro->matricula, alunoPonteiro->nome, alunoPonteiro->coeficiente);
-            printf(">> COEFICIENTE: %.2f\n", alunoPonteiro->coeficiente);
+            printf(">> Dados:\nMatricula: %d\nNome: %s\nCoeficiente: %.2f\n\n",
+               alunoPonteiro->matricula, alunoPonteiro->nome, alunoPonteiro->coeficiente);
         }
 
         else {
@@ -75,23 +70,21 @@ int main(){
             printf(">> Tempo: %.10lf\n\n", tempoMatriculas);
         }
 
-
         // BUSCA NA ARVORE
         printf(">> Busca na Árvore de Matrículas\n");
         start = clock();
-
-        arvoreResposta = buscaArv(arvoreMatricula, matriculasBusca[i]); // Atualizar buscaArv p buscaArvore
-        aluno = buscaNoArquivoPorPosicao(arquivo, arvoreResposta->posicaoArquivo);
-
-        tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
-        mediaMatriculas += tempoMatriculas;
+        arvoreResposta = buscaArvore(arvoreMatricula, matriculasBusca[i]); // Atualizar buscaArv p buscaArvore
         if (arvoreResposta != NULL) {
+            aluno = buscaNoArquivoPorPosicao(arquivo, arvoreResposta->posicaoArquivo);
+            tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
+            mediaMatriculasArvore += tempoMatriculas;
             printf(">> Encontrei a chave %d em %.10lf segundos\n", matriculasBusca[i], tempoMatriculas);
             printf(">> Dados:\nMatricula: %d\nNome: %s\nCoeficiente: %.2f\n\n",
                 aluno.matricula, aluno.nome, aluno.coeficiente);
         }
-
         else {
+            tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
+            mediaMatriculasArvore += tempoMatriculas;
             printf(">> Não foi encontrado nenhum aluno de matrícula %d.\n", matriculasBusca[i]);
             printf(">> Tempo: %.10lf\n\n", tempoMatriculas);
         }
@@ -99,19 +92,18 @@ int main(){
         // BUSCA NA TABELA HASH
         printf(">> Busca na Tabela Hash de Matriculas\n");
         start = clock();
-
         posicaoArquivo = buscaHash(matriculasBusca[i], tabelaHash, N_REGISTROS);
-        aluno = buscaNoArquivoPorPosicao(arquivo, posicaoArquivo);
-
-        tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
-        mediaMatriculas += tempoMatriculas;
-        if (arvoreResposta != NULL) {
+        if (posicaoArquivo >= 0) {
+            aluno = buscaNoArquivoPorPosicao(arquivo, posicaoArquivo);
+            tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
+            mediaMatriculasHash += tempoMatriculas;
             printf(">> Encontrei a chave %d em %.10lf segundos\n", matriculasBusca[i], tempoMatriculas);
             printf(">> Dados:\nMatricula: %d\nNome: %s\nCoeficiente: %.2f\n\n",
                 aluno.matricula, aluno.nome, aluno.coeficiente);
         }
-
         else {
+            tempoMatriculas = (clock() - start) / (double) CLOCKS_PER_SEC;
+            mediaMatriculasHash += tempoMatriculas;
             printf(">> Não foi encontrado nenhum aluno de matrícula %d.\n", matriculasBusca[i]);
             printf(">> Tempo: %.10lf\n\n", tempoMatriculas);
         }

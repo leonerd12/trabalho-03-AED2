@@ -17,4 +17,6 @@ int buscaHash(int chave, Hash *tabelaHash[], int tamanho);
 
 void imprimeTabelaHash(Hash *tabelaHash[], int tamanho);
 
+void imprimeLinhaHash(Hash *tabelaHash[], int tamanho, int linha);
+
 #endif
