@@ -91,6 +91,8 @@ void selecionarChavesArquivo(int chaves[], int n, FILE *arquivo) {
     for (i = i; i < n; i++) {
         chaves[i] = rand() % (max - min) + min;
     }
+
+    embaralharVetor(chaves, n);
 }
 
 char* sorteiaString(char strings[][30], int qtdStrings) {
