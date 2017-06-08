@@ -54,10 +54,10 @@ void imprimirAlunosVetor(Aluno alunos[], int tam) {
 }
 
 void gerarMatriculas(int vet[], int tam) {
-    int aux = 0;
+    int aux = 0, r;
     srand(time(NULL));
 	for (int i = 0; i < tam; i++) {
-        aux += rand() % 20;
+        aux += (rand() % 19) + 1;
 		vet[i] = 21000000 + aux;
 	}
 }

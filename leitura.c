@@ -25,20 +25,20 @@ int main(){
         // printf("%d %s %.2f\n", aluno.matricula, aluno.nome, aluno.coeficiente);
     }
 
-    //imprimeTabelaHash(tabelaHash, N_REGISTROS);
+    imprimeTabelaHash(tabelaHash, N_REGISTROS);
 
 
-    int posicao = buscaHash(21092184, tabelaHash, N_REGISTROS);
-    int linha = funcaoHash(21092184, N_REGISTROS);
-    printf("Linha: %d\n", linha);
-    imprimeLinhaHash(tabelaHash, N_REGISTROS, linha);
+    // int posicao = buscaHash(21092184, tabelaHash, N_REGISTROS);
+    // int linha = funcaoHash(21092184, N_REGISTROS);
+    // printf("Linha: %d\n", linha);
+    // imprimeLinhaHash(tabelaHash, N_REGISTROS, linha);
 
     Aluno alunox;
-    alunox = buscaNoArquivoPorPosicao(arquivo, 8134);
-    printf("%d %s %f\n", alunox.matricula, alunox.nome, alunox.coeficiente);
+    // alunox = buscaNoArquivoPorPosicao(arquivo, 8134);
+    // printf("%d %s %f\n", alunox.matricula, alunox.nome, alunox.coeficiente);
 
-    alunox = buscaNoArquivoPorPosicao(arquivo, 2362);
-    printf("%d %s %f\n", alunox.matricula, alunox.nome, alunox.coeficiente);
+    // alunox = buscaNoArquivoPorPosicao(arquivo, 2362);
+    // printf("%d %s %f\n", alunox.matricula, alunox.nome, alunox.coeficiente);
 
 
     // Fechar o arquivo.
