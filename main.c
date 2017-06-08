@@ -5,6 +5,18 @@
 #include "tad-arvore.h"
 #include "tad-hash.h"
 
+void buscaIntervalo(int inicio, int fim, int opcao_sinal){
+    clock_t start;
+    double tempo = 0;
+    for(int i = inicio; i < fim; i++){
+        start = clock();
+        buscaIntervalo();
+        tempo = (clock() - start) / (double) CLOCKS_PER_SEC;
+        tempoSoma += tempo;
+    }
+    return tempoSoma;
+}
+
 int main(){
     FILE *arquivo;
     Aluno aluno, *alunoPonteiro;
@@ -154,6 +166,19 @@ int main(){
     // // Resgata os dados pela posição da chave no arquivo.
     //
     //*/
+
+    // Buscas com intervalos
+    double tempoDeIntervalos = 0;
+    double tempoMenor, tempoMenorQue, tempoMaiorQue, tempoMaior, mediaIntervalos;
+
+    tempoMenor = buscaIntervalo(0,8,1);
+    tempoMenorQue = buscaIntervalo(8,16,2);
+    tempoMaiorQue = buscaIntervalo(16,23,3);
+    tempoMaior = buscaIntervalo(23,30,4);
+
+    tempoDeIntervalos = tempoMenor + tempoMenorQue + tempoMaiorQue + tempoMaior;
+
+    mediaIntervalos = (double) tempoDeIntervalos / 30;
     // //fechar o arquivo
     fclose(arquivo);
 
